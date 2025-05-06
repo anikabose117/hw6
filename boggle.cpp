@@ -106,7 +106,7 @@ bool boggleHelper(const std::set<std::string>& dict, const std::set<std::string>
 	std::string newWord = word + board[r][c];
 
 	// if false prefix for other words, so continue. if not a prefix, no need to continue (return false)
-	if (dict.find(word) == dict.end() && prefix.find(newWord) == prefix.end()){
+	if (dict.find(newWord) == dict.end() && prefix.find(newWord) == prefix.end()){
 		return false;
 	}
 
