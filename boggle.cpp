@@ -103,7 +103,7 @@ bool boggleHelper(const std::set<std::string>& dict, const std::set<std::string>
 	}
 
 	// add letter to the word by following the direction given in r & c
-	std::string newWord = word += board[r][c];
+	std::string newWord = word + board[r][c];
 
 	// if false prefix for other words, so continue. if not a prefix, no need to continue (return false)
 	if (prefix.find(newWord) == prefix.end()){
