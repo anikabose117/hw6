@@ -96,4 +96,26 @@ bool boggleHelper(const std::set<std::string>& dict, const std::set<std::string>
 {
 //add your solution here!
 
+	// checks if still in bounds
+	// board is a square so you can use size() for both r and c
+	if (r >= board.size() || c >= board.size()){
+		return false;
+	}
+
+	// add letter to the word by following the direction given in r & c
+	std::string newWord = word += board[r][c];
+
+	// if false prefix for other words, so continue. if not a prefix, no need to continue (return false)
+	if (prefix.find(newWord) == prefix.end()){
+		return false;
+	}
+
+	// word exists in the dictionary, so you can add it to the results
+	if (dict.find(newWord) != dict.end()){
+		result.insert(newWord);
+		// do not return because there could be longer words (i.e. ear and then ears)
+	}
+
+	// continue the direction
+	return boggleHelper(dict, prefix, board, newWord, result, r + dr, c + dc, dr, dc);
 }
