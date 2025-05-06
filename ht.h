@@ -485,8 +485,8 @@ void HashTable<K,V,Prober,Hash,KEqual>::resize()
     for (HASH_INDEX_T i = 0; i < tempCapacity; i++){
         if (temp[i] != nullptr && !temp[i] -> deleted){
             insert(temp[i] -> item);
-            delete temp[i];
         }    
+        delete temp[i];
     }
 }
 

@@ -110,12 +110,18 @@ bool boggleHelper(const std::set<std::string>& dict, const std::set<std::string>
 		return false;
 	}
 
-	// word exists in the dictionary, so you can add it to the results
+	// need to recurse to see if longer words exists before you can add this word (if valid) to results 
+	// because there could be longer words (i.e. ear and then ears)
+	bool longerExists = boggleHelper(dict, prefix, board, newWord, result, r + dr, c + dc, dr, dc);
+
+	// word exists in the dictionary, but don't know if you can add it to results because there could be longer words (i.e. ear and then ears) 
 	if (dict.find(newWord) != dict.end()){
-		result.insert(newWord);
-		// do not return because there could be longer words (i.e. ear and then ears)
+		if (!longerExists){
+			result.insert(newWord);
+			return true;
+			// can exit out because this is the longest possible word
+		}
 	}
 
-	// continue the direction
-	return boggleHelper(dict, prefix, board, newWord, result, r + dr, c + dc, dr, dc);
+	return longerExists;
 }
