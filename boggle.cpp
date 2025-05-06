@@ -106,7 +106,7 @@ bool boggleHelper(const std::set<std::string>& dict, const std::set<std::string>
 	std::string newWord = word + board[r][c];
 
 	// if false prefix for other words, so continue. if not a prefix, no need to continue (return false)
-	if (prefix.find(newWord) == prefix.end()){
+	if (dict.find(word) == dict.end() && prefix.find(newWord) == prefix.end()){
 		return false;
 	}
 
@@ -115,12 +115,10 @@ bool boggleHelper(const std::set<std::string>& dict, const std::set<std::string>
 	bool longerExists = boggleHelper(dict, prefix, board, newWord, result, r + dr, c + dc, dr, dc);
 
 	// word exists in the dictionary, but don't know if you can add it to results because there could be longer words (i.e. ear and then ears) 
-	if (dict.find(newWord) != dict.end()){
-		if (!longerExists){
-			result.insert(newWord);
-			return true;
-			// can exit out because this is the longest possible word
-		}
+	if (dict.find(newWord) != dict.end() && !longerExists){
+		result.insert(newWord);
+		return true;
+		// can exit out because this is the longest possible word
 	}
 
 	return longerExists;
